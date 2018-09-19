@@ -1,0 +1,43 @@
+﻿<div class="carousel d-none d-lg-block">
+    <img src="~/images/main-img.jpeg" alt="Abandoned Places" class="img-fluid">
+    <div class="carousel-caption" id="search">
+        <h1>Urban Exploration</h1>
+        <p>Find abandoned places</p>
+        <form action="/search" method="get">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipient's username" name="Name" value="@ViewBag.Name">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="d-none d-sm-block d-md-block d-lg-none image-container">
+    <img src="~/images/main-img.jpeg" alt="Abandoned Places" class="img-fluid">
+    <div class="centered">
+        <form action="/search" method="get">
+            <h2>Urban Exploration</h2>
+            <div class="input-group text-center">
+                <input type="text" class="form-control" placeholder="Recipient's username" name="Name" value="@ViewBag.Name">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="d-block d-sm-none" style="margin-top:50px;">
+    <form action="/search" method="get">
+        <div class="input-group text-center">
+            <input type="text" class="form-control" placeholder="Recipient's username" name="Name" value="@ViewBag.Name">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+<hr />

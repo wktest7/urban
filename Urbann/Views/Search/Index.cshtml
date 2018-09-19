@@ -1,0 +1,232 @@
+﻿@model Urbann.Models.SearchViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand">Filter by</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Categories
+                </a>
+                <div class="dropdown-menu">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <span class="dropdown-item filter-option-category">@item</span>
+                    }
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Countries
+                </a>
+                <div class="dropdown-menu">
+                    @foreach (var item in Model.Countries)
+                    {
+                        <span class="dropdown-item filter-option-country">@item</span>
+                    }
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-info my-2 my-sm-0" type="submit">Filter</button>
+        </form>
+    </div>
+</nav>
+
+<button class="btn btn-danger btn-sm" type="submit" style="margin:5px 0px 5px 0px;" >Clear all filters <i class="fas fa-times"></i></button>
+<div class="container">
+    <div class="row" id="filters">
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-sm-6 col-lg-4">
+        <div class="card shadow">
+            <img class="card-img-top" src="~/images/photos/3.jpeg" height="240" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-text">aaaa</h5>
+                <p class="card-text">
+                    a,b <br />
+                    c
+                </p>
+                <div class="form-row text-center">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-primary">More...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <div class="card shadow">
+            <img class="card-img-top" src="~/images/photos/3.jpeg" height="240" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-text">aaaa</h5>
+                <p class="card-text">
+                    a,b <br />
+                    c
+                </p>
+                <div class="form-row text-center">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-primary">More...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <div class="card shadow">
+            <img class="card-img-top" src="~/images/photos/3.jpeg" height="240" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-text">aaaa</h5>
+                <p class="card-text">
+                    a,b <br />
+                    c
+                </p>
+                <div class="form-row text-center">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-primary">More...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <div class="card shadow">
+            <img class="card-img-top" src="~/images/photos/3.jpeg" height="240" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-text">aaaa</h5>
+                <p class="card-text">
+                    a,b <br />
+                    c
+                </p>
+                <div class="form-row text-center">
+                    <div class="col-12">
+                        <a href="#" class="btn btn-primary">More...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="row col-lg-9">
+        @foreach (var item in Model.Places)
+        {
+            <div class="col-sm-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="~/images/photos/2.jpeg" height="200" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-text">@item.Name</h5>
+                        <p class="card-text">
+                            fdsfs
+                        </p>
+                        <div class="form-row text-center">
+                            <div class="col-12">
+                                <a href="#" class="btn btn-primary">More...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>*@
+
+
+@section Scripts {
+    <script>
+        var categories = [];
+        var countries = [];
+        $(".filter-option-category").click(function () {
+            if ($("#filters:contains('" + $(this).text() + "')").length > 0) {
+                return;
+            }
+            else {
+                var filter = '<button type="button" class="btn btn-primary btn-sm filter-button">' + $(this).text() + ' <i class="fas fa-times"></i></button>';
+                $("#filters").append(filter);
+                categories.push($(this).text());
+            }
+
+        });
+
+        $(".filter-option-country").click(function () {
+            if ($("#filters:contains('" + $(this).text() + "')").length > 0) {
+                return;
+            }
+            else {
+                var filter = '<button type="button" class="btn btn-primary btn-sm filter-button">' + $(this).text() + ' <i class="fas fa-times"></i></button>';
+                $("#filters").append(filter);
+                countries.push($(this).text());
+            }
+        });
+
+
+
+        $("#filters").delegate(".filter-button", "click", function () {
+            $(this).remove();
+        });
+
+        $(".list-group-item").click(function () {
+
+            if ($(this).find("i").hasClass("fas fa-check")) {
+                $(this).find("i").removeClass("fas fa-check");
+            }
+            else {
+                $(this).find("i").addClass("fas fa-check");
+                var categoryName = $(this).find("span").text();
+                alert(categoryName);
+                $.ajax({
+                    type: 'GET',
+                    url: '/Search/Index',
+                    beforeSend: function () {
+                        //alert("loading")
+                    },
+                    success: function (data) {
+                        //alert("ok");
+                        //$('#jumbo').text(data[3].Name + " " + data[3].Brand + " " + data[3].Age);
+                    },
+                    error: function (data) {
+                        //alert('error');
+                    }
+                });
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/Search/Index',
+            beforeSend: function () {
+                //alert("loading")
+            },
+            success: function (data) {
+                //alert("ok");
+                //$('#jumbo').text(data[3].Name + " " + data[3].Brand + " " + data[3].Age);
+            },
+            error: function (data) {
+                //alert('error');
+            }
+        });
+                                    //$(".list-group-item").click(function () {
+                                    //    if ($(this).hasClass("active")) {
+                                    //        $(this).removeClass("active");
+                                    //    }
+                                    //    else {
+                                    //        $(this).addClass("active");
+                                    //    }
+                                    //});
+
+    </script>
+
+
+}

@@ -12,6 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using Urbann.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Urbann.Services;
+using Urbann.Mappers;
+using Newtonsoft.Json;
+using Urbann.Data.Repositories;
 
 namespace Urbann
 {
@@ -34,13 +38,33 @@ namespace Urbann
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<IPlaceRepository, PlaceRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IPlaceService, PlaceService>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
