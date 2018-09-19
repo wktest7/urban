@@ -149,8 +149,6 @@
         var categories = [];
         var countries = [];
 
-        
-
         $(".filter-option-category").click(function () {
             if ($("#filters:contains('" + $(this).text() + "')").length > 0) {
                 
@@ -178,7 +176,6 @@
       
         });
 
-
         function filters() {
             if (categories.length > 0 || countries.length > 0) {
                 $("#clearAllFilters").show();
@@ -202,13 +199,13 @@
         });
 
 
-   
- 
+        $("#clearAllFilters").click(function () {
+            categories = [];
+            countries = [];
+            $("#filters").empty();
+            filters();
+        });
 
-        //$("div").delegate("p", "click", function () {
-        //    $("p").css("background-color", "pink");
-        //});
-     
 
 
 
