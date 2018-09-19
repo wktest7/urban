@@ -41,7 +41,7 @@
     </div>
 </nav>
 
-<button class="btn btn-danger btn-sm" type="submit" style="margin:5px 0px 5px 0px;" >Clear all filters <i class="fas fa-times"></i></button>
+<button class="btn btn-danger btn-sm" id="clearAllFilters" type="submit" style="margin:5px 0px 5px 0px;display:none;" >Clear all filters <i class="fas fa-times"></i></button>
 <div class="container">
     <div class="row" id="filters">
     </div>
@@ -148,60 +148,69 @@
     <script>
         var categories = [];
         var countries = [];
+
+        
+
         $(".filter-option-category").click(function () {
             if ($("#filters:contains('" + $(this).text() + "')").length > 0) {
-                return;
+                
             }
             else {
-                var filter = '<button type="button" class="btn btn-primary btn-sm filter-button">' + $(this).text() + ' <i class="fas fa-times"></i></button>';
+                var filter = '<button type="button" class="btn btn-primary btn-sm filter-button-category">' + $(this).text() + ' <i class="fas fa-times"></i></button>';
                 $("#filters").append(filter);
                 categories.push($(this).text());
+                filters();
             }
+   
 
         });
 
         $(".filter-option-country").click(function () {
             if ($("#filters:contains('" + $(this).text() + "')").length > 0) {
-                return;
+             
             }
             else {
-                var filter = '<button type="button" class="btn btn-primary btn-sm filter-button">' + $(this).text() + ' <i class="fas fa-times"></i></button>';
+                var filter = '<button type="button" class="btn btn-primary btn-sm filter-button-country">' + $(this).text() + ' <i class="fas fa-times"></i></button>';
                 $("#filters").append(filter);
                 countries.push($(this).text());
+                filters();
             }
+      
         });
 
 
+        function filters() {
+            if (categories.length > 0 || countries.length > 0) {
+                $("#clearAllFilters").show();
+            }
+            else {
+                $("#clearAllFilters").hide();
+            }
+        }
 
-        $("#filters").delegate(".filter-button", "click", function () {
+        $("#filters").on("click", ".filter-button-category", function () {
+            categories.pop($(this).text())
+            filters();
             $(this).remove();
         });
 
-        $(".list-group-item").click(function () {
 
-            if ($(this).find("i").hasClass("fas fa-check")) {
-                $(this).find("i").removeClass("fas fa-check");
-            }
-            else {
-                $(this).find("i").addClass("fas fa-check");
-                var categoryName = $(this).find("span").text();
-                alert(categoryName);
-                $.ajax({
-                    type: 'GET',
-                    url: '/Search/Index',
-                    beforeSend: function () {
-                        //alert("loading")
-                    },
-                    success: function (data) {
-                        //alert("ok");
-                        //$('#jumbo').text(data[3].Name + " " + data[3].Brand + " " + data[3].Age);
-                    },
-                    error: function (data) {
-                        //alert('error');
-                    }
-                });
-            }
+        $("#filters").on("click", ".filter-button-country", function () {
+            countries.pop($(this).text())
+            filters();
+            $(this).remove();
         });
+
+
+   
+ 
+
+        //$("div").delegate("p", "click", function () {
+        //    $("p").css("background-color", "pink");
+        //});
+     
+
+
 
         $.ajax({
             type: 'GET',

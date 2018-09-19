@@ -8623,7 +8623,8 @@ body {
 
 .card {
     border: none;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    margin-top: 15px;
     background-color: #070708;
 }
 
@@ -8641,8 +8642,18 @@ body {
     font-size: 80px;
 }
 
-.filter-button {
+.filter-button-category {
     margin: 5px 5px 5px 0px;
+}
+
+.filter-button-country {
+    margin: 5px 5px 5px 0px;
+}
+
+.dropdown-item:hover {
+    background-color: #4B1363;
+    cursor: pointer;
+    color: white;
 }
 
 /*# sourceMappingURL=site.css.map */
