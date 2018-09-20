@@ -47,6 +47,14 @@ namespace Urbann.Controllers.Api
             return Ok(places);
         }
 
+        [HttpGet("SearchComplex")]
+        public async Task<IActionResult> SearchComplex(string name, [FromQuery(Name = "country")] string[] countries, [FromQuery(Name = "category")] string[] categories)
+        {
+            var places = await _placeService.SearchAsync(name, countries, categories);
+
+            return Ok(places);
+        }
+
         // GET: api/Places
         //[HttpGet]
         //public IEnumerable<string> Get()

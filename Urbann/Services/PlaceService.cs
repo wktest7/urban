@@ -41,5 +41,11 @@ namespace Urbann.Services
             var places = await _placeRepository.SearchAsync(name, country, category);
             return _mapper.Map<IEnumerable<Place>, IEnumerable<PlaceDto>>(places);
         }
+
+        public async Task<IEnumerable<PlaceDto>> SearchAsync(string name, string[] countries, string[] categories)
+        {
+            var places = await _placeRepository.SearchAsync(name, countries, categories);
+            return _mapper.Map<IEnumerable<Place>, IEnumerable<PlaceDto>>(places);
+        }
     }
 }

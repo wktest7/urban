@@ -34,18 +34,7 @@ namespace Urbann.Services
                 .Include(p => p.Photos)
                 .ToListAsync();
         }
-
-        //public async Task<IEnumerable<Place>> GetAllAsync(int take)
-        //{
-        //    return await _context.Places
-        //        .Include(p => p.Address)
-        //        .ThenInclude(p => p.Country)
-        //        .Include(p => p.Category)
-        //        .Include(p => p.Photos)
-        //        .Take(take)
-        //        .ToListAsync();
-        //}
-
+        
         public async Task<IEnumerable<Place>> GetAllAsync(int take, int skip = 0)
         {
             return await _context.Places
@@ -69,6 +58,28 @@ namespace Urbann.Services
                 .Where(x => x.Address.Country.Name == country || country == null)
                 .Where(x => x.Category.Name == category || category == null)
                 .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Place>> SearchAsync(string name, string[] countries, string[] categories)
+        {
+            var places = _context.Places
+             .Include(p => p.Address)
+             .ThenInclude(p => p.Country)
+             .Include(p => p.Category)
+             .Include(p => p.Photos)
+             .Where(x => x.Name.Contains(name) || name == null);
+
+            if (countries.Length != 0)
+            {
+                places = places.Where(x => countries.Any(y => y.Equals(x.Address.Country.Name)));
+            };
+
+            if (categories.Length != 0)
+            {
+                places = places.Where(x => categories.Any(y => y.Equals(x.Category.Name)));
+            };
+
+            return await places.ToListAsync();
         }
     }
 }

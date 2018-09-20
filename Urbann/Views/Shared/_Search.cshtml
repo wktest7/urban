@@ -5,7 +5,7 @@
         <p>Find abandoned places</p>
         <form action="/search" method="get">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Recipient's username" name="Name" value="@ViewBag.Name">
+                <input type="text" class="form-control" placeholder="Recipient's username" name="Name" id="qName" value="@ViewBag.Name">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>
@@ -21,7 +21,7 @@
         <form action="/search" method="get">
             <h2>Urban Exploration</h2>
             <div class="input-group text-center">
-                <input type="text" class="form-control" placeholder="Recipient's username" name="Name" value="@ViewBag.Name">
+                <input type="text" class="form-control" placeholder="Recipient's username" name="Name" id="qName" value="@ViewBag.Name">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Search</button>
                 </div>
@@ -33,7 +33,7 @@
 <div class="d-block d-sm-none" style="margin-top:50px;">
     <form action="/search" method="get">
         <div class="input-group text-center">
-            <input type="text" class="form-control" placeholder="Recipient's username" name="Name" value="@ViewBag.Name">
+            <input type="text" class="form-control" placeholder="Recipient's username" name="Name" id="qName" value="@ViewBag.Name">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">Search</button>
             </div>

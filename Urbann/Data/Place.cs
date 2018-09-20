@@ -12,9 +12,9 @@ namespace Urbann.Data
         public string Description { get; set; }
         public string ThumbnailFileName { get; set; }
 
-        public int? AddressId { get; set; }
+        public int AddressId { get; set; }
         public Address Address { get; set; }
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
         public ICollection<Photo> Photos { get; set; }
 
