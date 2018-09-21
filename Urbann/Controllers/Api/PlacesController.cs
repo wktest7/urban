@@ -52,6 +52,7 @@ namespace Urbann.Controllers.Api
         {
             var places = await _placeService.SearchAsync(name, countries, categories);
 
+            Thread.Sleep(1555);
             return Ok(places);
         }
 

@@ -35,9 +35,9 @@
                 </div>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn-info my-2 my-sm-0" type="submit" id="filterBtn">Filter</button>
-        </form>
+        <div class="form-inline my-2 my-lg-0">
+            <button class="btn btn-info my-2 my-sm-0" id="filterBtn">Filter</button>
+        </div>
     </div>
 </nav>
 
@@ -48,6 +48,9 @@
 </div>
 
 
+<div class="row" id="cardsDiv">
+
+</div>
 
 <div class="row">
     <div class="col-lg-4 offset-lg-4">
@@ -80,13 +83,11 @@
 
     </div>*@
 
-
+@await Html.PartialAsync("_CardTemplate")
 
 
 @section Scripts {
     <script>
-
-
         var categories = [];
         var countries = [];
 
@@ -99,6 +100,7 @@
                 $("#filters").append(filter);
                 categories.push($(this).text());
                 filters();
+                search();
             }
         });
 
@@ -111,15 +113,18 @@
                 $("#filters").append(filter);
                 countries.push($(this).text());
                 filters();
+                search();
             }
         });
 
         function filters() {
             if (categories.length > 0 || countries.length > 0) {
                 $("#clearAllFilters").show();
+                
             }
             else {
                 $("#clearAllFilters").hide();
+
             }
         }
 
@@ -127,6 +132,7 @@
             categories.pop($(this).text())
             filters();
             $(this).remove();
+
         });
 
 
@@ -134,6 +140,7 @@
             countries.pop($(this).text())
             filters();
             $(this).remove();
+
         });
 
 
@@ -144,37 +151,49 @@
             filters();
         });
 
-        $("#loading").append('<i id="spinner" class="fas fa-spinner fa-spin"></i>');
+        //$("#loading").append('<i id="spinner" class="fas fa-spinner fa-spin"></i>');
 
         $("#filterBtn").click(function () {
-            var qName = $("#qName").val();
-            $.ajax({
-                type: 'GET',
-                data: {
-                    name: qName,
-                    skip: cards
-                },
-                url: '/api/places/search',
-                beforeSend: function () {
-                    //alert("loading")
-                },
-                success: function (data) {
-                    //alert("ok");
-                    //$('#jumbo').text(data[3].Name + " " + data[3].Brand + " " + data[3].Age);
-                },
-                error: function (data) {
-                    //alert('error');
-                }
-            });
+            search();
         });
 
 
-
-
-
-
-
-
+        function search() {
+            var qName = $("#qName").val();
+            $.ajax({
+                type: 'GET',
+                traditional: true,
+                data: {
+                    name: qName,
+                    category: categories,
+                    country: countries
+                },
+                url: 'api/places/searchcomplex',
+                beforeSend: function () {
+                    $("#loading").append('<i id="spinner" class="fas fa-spinner fa-spin"></i>');
+                },
+                success: function (data) {
+                    if (data === undefined || data.length == 0) {
+                        $('#noData').fadeIn(1000);
+                        lackPlaces = true;
+                    }
+                    else {
+                        var cardTemplate = $('#cardTemplate').html();
+                        $.each(data, function (i, item) {
+                            $('#cardsDiv').append(Mustache.render(cardTemplate, item));
+                        })
+                        $('.fadeIn').fadeIn(1000);
+                        console.log(data.length);
+                    }
+                },
+                error: function (data) {
+                    alert('error');
+                },
+                complete: function (xhr, textStatus) {
+                    $("#spinner").remove();
+                }
+            });
+        }
 
 
 
@@ -195,14 +214,14 @@
                 //alert('error');
             }
         });
-                                                //$(".list-group-item").click(function () {
-                                                //    if ($(this).hasClass("active")) {
-                                                //        $(this).removeClass("active");
-                                                //    }
-                                                //    else {
-                                                //        $(this).addClass("active");
-                                                //    }
-                                                //});
+                                                    //$(".list-group-item").click(function () {
+                                                    //    if ($(this).hasClass("active")) {
+                                                    //        $(this).removeClass("active");
+                                                    //    }
+                                                    //    else {
+                                                    //        $(this).addClass("active");
+                                                    //    }
+                                                    //});
 
     </script>
 
