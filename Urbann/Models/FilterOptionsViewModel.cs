@@ -6,10 +6,9 @@ using Urbann.Data;
 
 namespace Urbann.Models
 {
-    public class SearchViewModel
+    public class FilterOptionsViewModel
     {
         public IEnumerable<string> Countries { get; set; }
         public IEnumerable<string> Categories { get; set; }
-        //public IPagedList<Place> Places { get; set; }
     }
 }

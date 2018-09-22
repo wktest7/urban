@@ -42,9 +42,9 @@ namespace Urbann.Services
             return _mapper.Map<IEnumerable<Place>, IEnumerable<PlaceDto>>(places);
         }
 
-        public async Task<IEnumerable<PlaceDto>> SearchAsync(string name, string[] countries, string[] categories)
+        public async Task<IEnumerable<PlaceDto>> SearchAsync(string name, string[] countries, string[] categories, int take, int skip = 0)
         {
-            var places = await _placeRepository.SearchAsync(name, countries, categories);
+            var places = await _placeRepository.SearchAsync(name, countries, categories, take, skip);
             return _mapper.Map<IEnumerable<Place>, IEnumerable<PlaceDto>>(places);
         }
     }

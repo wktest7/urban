@@ -30,11 +30,10 @@ namespace Urbann.Controllers.Api
 
 
         [HttpGet("Take")]
-        public async Task<IActionResult> Get(int skip, int limit)
+        public async Task<IActionResult> Get(int limit, int skip)
         {
             Thread.Sleep(2000);
             var places = await _placeService.GetAllAsync(limit, skip);
-
             return Ok(places);
         }
 
@@ -48,44 +47,30 @@ namespace Urbann.Controllers.Api
         }
 
         [HttpGet("SearchComplex")]
-        public async Task<IActionResult> SearchComplex(string name, [FromQuery(Name = "country")] string[] countries, [FromQuery(Name = "category")] string[] categories)
+        public async Task<IActionResult> SearchComplex(string name, [FromQuery(Name = "country")] string[] countries, [FromQuery(Name = "category")] string[] categories, int limit, int skip = 0)
         {
-            var places = await _placeService.SearchAsync(name, countries, categories);
+            var places = await _placeService.SearchAsync(name, countries, categories, limit, skip);
 
             Thread.Sleep(1555);
             return Ok(places);
         }
 
-        // GET: api/Places
-        //[HttpGet]
-        //public IEnumerable<string> Get()
+
+        //[HttpPost]
+        //public void Post([FromBody] string value)
         //{
-        //    return new string[] { "value1", "value2" };
         //}
 
-        //// GET: api/Places/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
+        //// PUT: api/Places/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
         //{
-        //    return "value";
         //}
 
-        // POST: api/Places
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Places/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE: api/ApiWithActions/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

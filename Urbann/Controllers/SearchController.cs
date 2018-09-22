@@ -28,18 +28,11 @@ namespace Urbann.Controllers
         {
             var countries = await _countryRepository.GetAllNamesAsync();
             var categories = await _categoryRepository.GetAllNamesAsync();
-            //var places = await _placeRepository.SearchByName(name);
-            //var qSplit = q.Split();
 
-
-
-
-
-            var model = new SearchViewModel
+            var model = new FilterOptionsViewModel
             {
                 Countries = countries,
                 Categories = categories,
-               // Places = places
             };
 
             ViewBag.Name = name;

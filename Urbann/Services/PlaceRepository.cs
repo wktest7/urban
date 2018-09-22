@@ -60,7 +60,7 @@ namespace Urbann.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Place>> SearchAsync(string name, string[] countries, string[] categories)
+        public async Task<IEnumerable<Place>> SearchAsync(string name, string[] countries, string[] categories, int take, int skip = 0)
         {
             var places = _context.Places
              .Include(p => p.Address)
@@ -79,7 +79,7 @@ namespace Urbann.Services
                 places = places.Where(x => categories.Any(y => y.Equals(x.Category.Name)));
             };
 
-            return await places.ToListAsync();
+            return await places.Skip(skip).Take(take).ToListAsync();
         }
     }
 }
