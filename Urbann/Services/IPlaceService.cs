@@ -10,7 +10,6 @@ namespace Urbann.Services
     {
         Task<PlaceDto> GetAsync(int id);
         Task<IEnumerable<PlaceDto>> GetAllAsync();
-        Task<IEnumerable<PlaceDto>> GetAllAsync(int take, int skip = 0);
         Task<IEnumerable<PlaceDto>> SearchAsync(string name, string country, string category);
         Task<IEnumerable<PlaceDto>> SearchAsync(string name, string[] countries, string[] categories, int take, int skip = 0);
     }

@@ -1,5 +1,43 @@
 ﻿@model Urbann.Models.FilterOptionsViewModel
 
+
+<div class="carousel d-none d-lg-block">
+    <img src="~/images/main-img.jpeg" alt="Abandoned Places" class="img-fluid">
+    <div class="carousel-caption" id="search">
+        <h1>Urban Exploration</h1>
+        <p>Find abandoned places</p>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Enter a name of place..." name="Name" id="qName">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" id="searchBtn">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-none d-sm-block d-md-block d-lg-none image-container">
+    <img src="~/images/main-img.jpeg" alt="Abandoned Places" class="img-fluid">
+    <div class="centered">
+        <h2>Urban Exploration</h2>
+        <div class="input-group text-center">
+            <input type="text" class="form-control" placeholder="Enter a name of place..." name="Name" id="qName">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit" id="searchBtn">Search</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-block d-sm-none" style="margin-top:50px;">
+    <div class="input-group text-center">
+        <input type="text" class="form-control" placeholder="Enter a name of place..." name="Name" id="qName">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit" id="searchBtn">Search</button>
+        </div>
+    </div>
+</div>
+<hr />
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand">Filter by</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,9 +68,6 @@
                 </div>
             </li>
         </ul>
-        @*<div class="form-inline my-2 my-lg-0">
-                <button class="btn btn-info my-2 my-sm-0" id="filterBtn">Filter</button>
-            </div>*@
     </div>
 </nav>
 
@@ -44,7 +79,6 @@
 
 
 <div class="row" id="cardsDiv">
-
 </div>
 
 <h3 class="text-center" id="noData">there are no more abandoned places</h3>
@@ -56,28 +90,6 @@
     </div>
 </div>
 
-@*<div class="row col-lg-9">
-        @foreach (var item in Model.Places)
-        {
-            <div class="col-sm-6 col-lg-4">
-                <div class="card">
-                    <img class="card-img-top" src="~/images/photos/2.jpeg" height="200" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-text">@item.Name</h5>
-                        <p class="card-text">
-                            fdsfs
-                        </p>
-                        <div class="form-row text-center">
-                            <div class="col-12">
-                                <a href="#" class="btn btn-primary">More...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-    </div>*@
 
 @await Html.PartialAsync("_CardTemplate")
 
@@ -88,8 +100,8 @@
         var categories = [];
         var countries = [];
         var carsDiv = $('#cardsDiv');
-           
-    
+
+
 
         $(".filter-option-category").click(function () {
             if ($("#filters:contains('" + $(this).text() + "')").length > 0) {
@@ -146,10 +158,6 @@
             search();
         });
 
-        $(".filter-button-country").click(function () {
-            alert($(this).text());
-        });
-
         $("#clearAllFilters").click(function () {
             categories = [];
             countries = [];
@@ -171,44 +179,44 @@
         var loadCards = true;
         var lackPlaces = false;
         function search() {
-                var cards = $('.card').length;
-                var qName = $("#qName").val();
-                $.ajax({
-                    type: 'GET',
-                    traditional: true,
-                    data: {
-                        name: qName,
-                        category: categories,
-                        country: countries,
-                        limit: 12,
-                        skip: cards
-                    },
-                    url: 'api/places/searchcomplex',
-                    beforeSend: function () {
-                        $('#noData').hide();
-                        $("#loading").append('<i id="spinner" class="fas fa-spinner fa-spin"></i>');
-                        loadCards = false;
-                    },
-                    success: function (data) {
-                        if (data === undefined || data.length == 0) {
-                            $('#noData').fadeIn(1000);
-                        }
-                        else {
-                            var cardTemplate = $('#cardTemplate').html();
-                            $.each(data, function (i, item) {
-                                carsDiv.append(Mustache.render(cardTemplate, item));
-                            })
-                            $('.fadeIn').fadeIn(1000);
-                        }
-                    },
-                    error: function (data) {
-                        alert('error');
-                    },
-                    complete: function (xhr, textStatus) {
-                        $("#spinner").remove();
-                        loadCards = true;
+            var cards = $('.card').length;
+            var qName = $("#qName").val();
+            $.ajax({
+                type: 'GET',
+                traditional: true,
+                data: {
+                    name: qName,
+                    category: categories,
+                    country: countries,
+                    limit: 12,
+                    skip: cards
+                },
+                url: 'api/places/searchcomplex',
+                beforeSend: function () {
+                    $('#noData').hide();
+                    $("#loading").append('<i id="spinner" class="fas fa-spinner fa-spin"></i>');
+                    loadCards = false;
+                },
+                success: function (data) {
+                    if (data === undefined || data.length == 0) {
+                        $('#noData').fadeIn(1000);
                     }
-                });  
+                    else {
+                        var cardTemplate = $('#cardTemplate').html();
+                        $.each(data, function (i, item) {
+                            carsDiv.append(Mustache.render(cardTemplate, item));
+                        })
+                        $('.fadeIn').fadeIn(1000);
+                    }
+                },
+                error: function (data) {
+                   
+                },
+                complete: function (xhr, textStatus) {
+                    $("#spinner").remove();
+                    loadCards = true;
+                }
+            });
         }
 
 

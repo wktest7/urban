@@ -91,6 +91,12 @@ namespace Urbann
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                  name: "about-route",
+                  template: "{action}/{id?}",
+                  defaults: new { controller = "Home"}
+               );
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });

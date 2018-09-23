@@ -13,11 +13,14 @@ namespace Urbann.Controllers
     {
         private readonly ICountryRepository _countryRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IPlaceRepository _placeRepository;
 
-        public HomeController(ICountryRepository countryRepository, ICategoryRepository categoryRepository)
+        public HomeController(ICountryRepository countryRepository, ICategoryRepository categoryRepository,
+            IPlaceRepository placeRepository)
         {
             _countryRepository = countryRepository;
             _categoryRepository = categoryRepository;
+            _placeRepository = placeRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -32,6 +35,23 @@ namespace Urbann.Controllers
             };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Place(int id)
+        {
+            var place = await _placeRepository.GetAsync(id);
+
+            if (place == null)
+            {
+                return NotFound();
+            }
+
+            return View(place);
+        }
+
+        public IActionResult About()
+        {
+            return View();
         }
     }
 }

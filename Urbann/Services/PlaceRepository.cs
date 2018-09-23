@@ -22,6 +22,7 @@ namespace Urbann.Services
                 .Include(x => x.Address)
                 .ThenInclude(p => p.Country)
                 .Include(p => p.Category)
+                .Include(p => p.Photos)
                 .SingleOrDefaultAsync(x => x.PlaceId == id);
         }
 

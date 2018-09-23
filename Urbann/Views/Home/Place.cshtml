@@ -1,0 +1,21 @@
+﻿@model Urbann.Data.Place
+
+<h2 style="margin-top:30px">@Model.Name</h2>
+<h5>@Model.Address.Country.Name, @Model.Address.City, @Model.Address.Street</h5>
+<h5>@Model.Category.Name</h5>
+
+
+<div style="margin-top:20px;">
+    <img src="~/images/photos/@Model.ThumbnailFileName" alt="@Model.Name" style="float:left;width:300px;height:300px;margin-right:15px;">
+    <p>@Model.Description</p>
+</div>
+
+<div class="row" style="margin-top:30px">
+    @foreach (var item in Model.Photos)
+    {
+        <div class="col-6" style="padding-bottom: 20px">
+            <img src="~/images/photos/@item.FileName" alt="@Model.Name" class="img-fluid">
+        </div>
+    }
+</div>
+

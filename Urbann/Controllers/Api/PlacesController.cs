@@ -20,6 +20,13 @@ namespace Urbann.Controllers.Api
             _placeService = placeService;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var place = await _placeService.GetAsync(id);
+            return Ok(place);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -27,16 +34,6 @@ namespace Urbann.Controllers.Api
 
             return Ok(places);
         }
-
-
-        [HttpGet("Take")]
-        public async Task<IActionResult> Get(int limit, int skip)
-        {
-            Thread.Sleep(2000);
-            var places = await _placeService.GetAllAsync(limit, skip);
-            return Ok(places);
-        }
-
 
         [HttpGet("Search")]
         public async Task<IActionResult> Search(string name, string country, string category)

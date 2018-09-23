@@ -1,0 +1,55 @@
+﻿
+<h4 class="text-center" style="margin-top:50px;">This is an API for Urbex. It accepts requests in GET and returns data in JSON.</h4>
+
+<div class="httpRequest">
+    <h6>Get by id</h6>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">GET</span>
+        </div>
+        <input type="text" class="form-control" value="https://@Context.Request.Host/api/places/1" readonly>
+    </div>
+</div>
+
+<div class="httpRequest">
+    <h6>Search by name</h6>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">GET</span>
+        </div>
+        <input type="text" class="form-control" value="https://@Context.Request.Host/api/places/search?name=place 1" readonly>
+    </div>
+</div>
+
+<div class="httpRequest">
+    <h6>Search by category</h6>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">GET</span>
+        </div>
+        <input type="text" class="form-control" value="https://@Context.Request.Host/api/places/search?category=factory" readonly>
+    </div>
+</div>
+
+
+<div class="httpRequest">
+    <h6>Search by country</h6>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">GET</span>
+        </div>
+        <input type="text" class="form-control" value="https://@Context.Request.Host/api/places/searchcomplex?country=spain" readonly>
+    </div>
+</div>
+
+<div class="httpRequest">
+    <h6>Search by multiple parameters, and get specific limit</h6>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">GET</span>
+        </div>
+        <input type="text" class="form-control" value="https://@Context.Request.Host/api/places/searchcomplex?country=spain&country=italy&category=church&category=factory&limit=100" readonly>
+    </div>
+</div>
+
+
